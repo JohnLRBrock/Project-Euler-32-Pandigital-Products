@@ -19,17 +19,23 @@ def pandigital?(a, b, n)
   true
 end
 
-
 def products(target)
   sum = 0
   i = 2
   j = i + 1
-  while concat_quotient(i, j).length < target
-    j = i + 1
-    while concat_quotient(i, j).length < target
-      sum += i * j if pandigital?(i, j, target)
+  products = Hash.new()
+  while concat_quotient(i, j).length <= target
+    while concat_quotient(i, j).length <= target
+      unless products[i * j]
+        puts "i:#{i} J:#{j}"
+        if pandigital?(i, j, target)
+          sum += i * j 
+          products[i * j] = true
+        end
+      end
       j += 1
     end
+    j = i + 1
     i += 1
   end
   sum
